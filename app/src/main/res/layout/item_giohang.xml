@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="8dp"
+    app:cardCornerRadius="4dp"
+    android:layout_margin="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/item_GioHang_Image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_new">
+
+        </ImageView>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/item_GioHang_TenSP"
+                android:text="Ten San Pham "
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></TextView>
+            <LinearLayout
+                android:layout_weight="18"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/item_GioHang_Gia"
+                    android:text="200000"
+                    android:layout_weight="3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+                <ImageView
+                    android:layout_weight="2"
+                    android:id="@+id/item_GioHang_Tru"
+                    android:src="@drawable/baseline_remove_24"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    ></ImageView>
+                <TextView
+                    android:gravity="center"
+                    android:layout_weight="3"
+                    android:id="@+id/item_GioHang_SoLuong"
+                    android:text="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></TextView>
+                <ImageView
+                    android:layout_weight="2"
+                    android:id="@+id/item_GioHang_Cong"
+                    android:src="@drawable/baseline_add_24"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    ></ImageView>
+                <TextView
+                    android:gravity="center"
+                    android:layout_weight="3"
+                    android:id="@+id/item_GioHang_Gia_Tong_Tren_SP"
+                    android:text="500000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></TextView>
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/item_Giohang_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </CheckBox>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ThemSanPhamActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarMangHinhQuanLy_ThemSanPham"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#ECBB29"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Thêm Sản Phẩm Mới"
+        app:titleTextColor="@color/white"
+        tools:layout_editor_absoluteX="0dp"></androidx.appcompat.widget.Toolbar>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/line1"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarMangHinhQuanLy_ThemSanPham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+        <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/txtQuanLyThem_Ten_SanPham"
+        android:hint="Tên Sản Phẩm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/line2"
+        app:layout_constraintTop_toBottomOf="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtQuanLyThem_Gia_SanPham"
+            android:hint="Giá Sản Phẩm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/line3"
+        app:layout_constraintTop_toBottomOf="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtQuanLyThem_HinhAnh_SanPham"
+            android:hint="Hình Ảnh Sản Phẩm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/line4"
+        app:layout_constraintTop_toBottomOf="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtQuanLyThem_MoTa_SanPham"
+            android:hint="Mô Tả Sản Phẩm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+    <Spinner
+        app:layout_constraintTop_toBottomOf="@+id/line4"
+        android:id="@+id/spinnerThemSanPhamQuanLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Spinner>
+    <Button
+        android:id="@+id/btnThemSP_QuanLy"
+        android:text="Thêm Sản Phẩm"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerThemSanPhamQuanLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Button>
+</androidx.constraintlayout.widget.ConstraintLayout>
