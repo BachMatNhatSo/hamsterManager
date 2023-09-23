@@ -41,6 +41,7 @@ dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
             because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
         }
+
     }
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
@@ -61,5 +62,6 @@ dependencies {
     implementation("org.greenrobot:eventbus:3.3.1")
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.airbnb.android:lottie:6.1.0")
+    implementation ("com.github.dhaval2404:imagepicker:2.1")
 
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.manager.hamster.R;
 import com.manager.hamster.model.item;
+import com.manager.hamster.utils.utils;
 
 import java.util.List;
 
@@ -37,7 +38,13 @@ public class chiTietAdapter extends RecyclerView.Adapter<chiTietAdapter.MyViewHo
         item item=listItem.get(position);
         holder.txtten.setText(item.getTensanpham()+" ");
         holder.txtsoluong.setText("Số Lượng: "+item.getSoluong());
-        Glide.with(context).load(item.getHinhanh()).into(holder.imgChiTiet);
+        //.with(context).load(item.getHinhanh()).into(holder.imgChiTiet);
+        if(item.getHinhanh().contains("http")){
+           Glide.with(context).load(item.getHinhanh()).into(holder.imgChiTiet);
+        }else {
+            String hinh = utils.BASE_URL+"images/"+item.getHinhanh();
+            Glide.with(context).load(hinh).into(holder.imgChiTiet);
+        }
 
     }
 

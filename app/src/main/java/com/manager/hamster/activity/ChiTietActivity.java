@@ -2,6 +2,7 @@ package com.manager.hamster.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -30,7 +31,7 @@ public class ChiTietActivity extends AppCompatActivity {
     Toolbar toolbar;
     sanPhamMoi sanPhamMoi;
     NotificationBadge notificationBadge;
-
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +98,14 @@ public class ChiTietActivity extends AppCompatActivity {
         sanPhamMoi =(sanPhamMoi) getIntent().getSerializableExtra("chitiet");
         tensp.setText(sanPhamMoi.getTensanpham());
         mota.setText(sanPhamMoi.getMota());
-        Glide.with(getApplicationContext()).load(sanPhamMoi.getHinhanh()).into(imghinhanh);
+        //Glide.with(getApplicationContext()).load(sanPhamMoi.getHinhanh()).into(imghinhanh);
+        if(sanPhamMoi.getHinhanh().contains("http")){
+
+            Glide.with(getApplicationContext()).load(sanPhamMoi.getHinhanh()).into(imghinhanh);
+        }else {
+            String hinh = utils.BASE_URL+"images/"+sanPhamMoi.getHinhanh();
+            Glide.with(getApplicationContext()).load(hinh).into(imghinhanh);
+        }
         DecimalFormat decimalFormat =new DecimalFormat("###,###,###");
         giasp.setText("Giá: "+decimalFormat.format(Double.parseDouble(sanPhamMoi.getGiasp()))+"Đ");
         Integer[] so= new Integer[]{1,2,3,4,5,6,7,8,9,10};

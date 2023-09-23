@@ -48,6 +48,12 @@ public class gioHangAdapter extends RecyclerView.Adapter<gioHangAdapter.MyViewHo
         holder.item_GioHang_TenSP.setText(gioHang.getTensp());
         holder.item_GioHang_SoLuong.setText(gioHang.getSoluong() +" ");
         Glide.with(context).load(gioHang.getHinhsp()).into(holder.item_GioHang_Image);
+        if(gioHang.getHinhsp().contains("http")){
+            Glide.with(context).load(gioHang.getHinhsp()).into(holder.item_GioHang_Image);
+        }else {
+            String hinh = utils.BASE_URL+"images/"+gioHang.getHinhsp();
+            Glide.with(context).load(hinh).into(holder.item_GioHang_Image);
+        }
         DecimalFormat decimalFormat =new DecimalFormat("###,###,###");
         holder.item_GioHang_Gia.setText("Giá: "+decimalFormat.format((gioHang.getGiasp()))+"Đ");
         long gia = gioHang.getSoluong() * gioHang.getGiasp();

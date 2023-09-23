@@ -16,6 +16,7 @@ import com.manager.hamster.Interface.ItemClickListener;
 import com.manager.hamster.R;
 import com.manager.hamster.activity.ChiTietActivity;
 import com.manager.hamster.model.sanPhamMoi;
+import com.manager.hamster.utils.utils;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -42,7 +43,13 @@ public class sanPhamMoiAdapter extends RecyclerView.Adapter<sanPhamMoiAdapter.My
         holder.txtten.setText(sanPhamMoi.getTensanpham());
         DecimalFormat decimalFormat =new DecimalFormat("###,###,###");
         holder.txtgia.setText("Giá: "+decimalFormat.format(Double.parseDouble(sanPhamMoi.getGiasp()))+"Đ");
-        Glide.with(context).load(sanPhamMoi.getHinhanh()).into(holder.imgHinhAnh);
+        if(sanPhamMoi.getHinhanh().contains("http")){
+            Glide.with(context).load(sanPhamMoi.getHinhanh()).into(holder.imgHinhAnh);
+        }else {
+            String hinh = utils.BASE_URL+"images/"+sanPhamMoi.getHinhanh();
+            Glide.with(context).load(hinh).into(holder.imgHinhAnh);
+        }
+
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int pos, boolean isLongClick) {
