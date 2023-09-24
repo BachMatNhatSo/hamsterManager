@@ -85,6 +85,24 @@ public interface ApiHamster {
             @Field("loai") int loai
 
     );
+    @POST("updatesp.php")
+    @FormUrlEncoded
+    Observable<MessageModel> suasp(
+            @Field("tensanpham") String tensanpham,
+            @Field("giasp") String giasp,
+            @Field("hinhanh") String hinhanh,
+            @Field("mota") String mota,
+            @Field("loai") int loai,
+            @Field("id") int id
+
+    );
+    @POST("xoasp.php")
+    @FormUrlEncoded
+    Observable<MessageModel> xoasp(
+            @Field("id") int id
+
+    );
+
     @Multipart
     @POST("upload.php")
     Call <MessageModel>uploadFile(@Part MultipartBody.Part file);

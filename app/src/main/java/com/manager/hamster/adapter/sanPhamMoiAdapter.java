@@ -2,6 +2,7 @@ package com.manager.hamster.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,11 @@ import com.bumptech.glide.Glide;
 import com.manager.hamster.Interface.ItemClickListener;
 import com.manager.hamster.R;
 import com.manager.hamster.activity.ChiTietActivity;
+import com.manager.hamster.model.EventBus.SuaXoaEvent;
 import com.manager.hamster.model.sanPhamMoi;
 import com.manager.hamster.utils.utils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -58,6 +62,8 @@ public class sanPhamMoiAdapter extends RecyclerView.Adapter<sanPhamMoiAdapter.My
                     intent.putExtra("chitiet",sanPhamMoi);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
+                }else{
+                    EventBus.getDefault().postSticky(new SuaXoaEvent(sanPhamMoi));
                 }
             }
         });
@@ -68,7 +74,7 @@ public class sanPhamMoiAdapter extends RecyclerView.Adapter<sanPhamMoiAdapter.My
         return array.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, View.OnLongClickListener {
         TextView txtgia,txtten;
         ImageView imgHinhAnh;
         private ItemClickListener itemClickListener;
@@ -79,6 +85,8 @@ public class sanPhamMoiAdapter extends RecyclerView.Adapter<sanPhamMoiAdapter.My
             txtten=itemView.findViewById(R.id.itemsp_ten);
             imgHinhAnh=itemView.findViewById(R.id.itemsp_image);
             itemView.setOnClickListener(this);
+            itemView.setOnCreateContextMenuListener(this);
+            itemView.setOnLongClickListener(this);
 
         }
 
@@ -89,6 +97,18 @@ public class sanPhamMoiAdapter extends RecyclerView.Adapter<sanPhamMoiAdapter.My
         @Override
         public void onClick(View view) {
             itemClickListener.onClick(view,getAdapterPosition(),false);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            contextMenu.add(0,0,getAdapterPosition(),"Sửa");
+            contextMenu.add(0,1,getAdapterPosition(),"Xóa");
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            itemClickListener.onClick(view,getAdapterPosition(),true);
+            return false;
         }
     }
 }

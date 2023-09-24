@@ -179,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
                                 spAdapter = new sanPhamMoiAdapter(getApplicationContext(),mangSpMoi);
                                 recyclerView.setAdapter(spAdapter);
                             }
+                        },throwable -> {
+                            Toast.makeText(getApplicationContext(), "Khong the ket noi voi sever", Toast.LENGTH_SHORT).show();
                         }
                 ));
     }
@@ -238,6 +240,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                 ));
      }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getSPMoi();
+    }
 
     @Override
     protected void onDestroy() {

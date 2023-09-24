@@ -15,7 +15,28 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Thêm Sản Phẩm Mới"
         app:titleTextColor="@color/white"
-        tools:layout_editor_absoluteX="0dp"></androidx.appcompat.widget.Toolbar>
+        tools:layout_editor_absoluteX="0dp">
+        <LinearLayout
+            android:layout_gravity="right"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"   >
+
+            <FrameLayout
+                android:id="@+id/frameThemSPMMenu"
+                android:layout_marginRight="10dp"
+                android:layout_width="60dp"
+                android:layout_height="?attr/actionBarSize">
+
+                <ImageView
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/ic_shopping_cart_24"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"></ImageView>
+
+            </FrameLayout>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/line1"
         app:layout_constraintTop_toBottomOf="@+id/toolbarMangHinhQuanLy_ThemSanPham"

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.manager.hamster.R;
 import com.manager.hamster.databinding.ActivityThemSanPhamBinding;
 import com.manager.hamster.model.MessageModel;
+import com.manager.hamster.model.sanPhamMoi;
 import com.manager.hamster.retrofit.ApiHamster;
 import com.manager.hamster.retrofit.retrofitClient;
 import com.manager.hamster.utils.utils;
@@ -47,22 +49,55 @@ public class ThemSanPhamActivity extends AppCompatActivity {
     ApiHamster apiHamster;
     ActivityThemSanPhamBinding binding;
     String mediaPath;
+    FrameLayout frameLayout;
+    sanPhamMoi sanphamMoiSua;
+    boolean flag=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityThemSanPhamBinding.inflate(getLayoutInflater());
         apiHamster= retrofitClient.getInstance(utils.BASE_URL).create(ApiHamster.class);
         setContentView(binding.getRoot());
-
         initView();
         initData();
+        initControl();
+        Intent intentget =getIntent();
+        sanphamMoiSua=(sanPhamMoi ) intentget.getSerializableExtra("sua");
+        if(sanphamMoiSua == null){
+            flag=false;
+        }else {
+            flag=true;
+            binding.btnThemSPQuanLy.setText("Sửa sản phẩm");
+            //show dât
+            binding.txtQuanLyThemMoTaSanPham.setText(sanphamMoiSua.getMota());
+            binding.txtQuanLyThemGiaSanPham.setText(sanphamMoiSua.getGiasp()+"");
+            binding.txtQuanLyThemHinhAnhSanPham.setText(sanphamMoiSua.getHinhanh());
+            binding.txtQuanLyThemTenSanPham.setText(sanphamMoiSua.getTensanpham());
+            binding.spinnerThemSanPhamQuanLy.setSelection(sanphamMoiSua.getLoai());
+
+
+
+        }
+
+
+    }
+
+    private void initControl() {
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentMenu= new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intentMenu);
+                finish();
+            }
+        });
     }
 
     private void initData() {
         List<String> stringList = new ArrayList<>();
         stringList.add("Vui lòng chọn danh mục");
+        stringList.add("Hamster Robo");
         stringList.add("Hamster Bear");
-        stringList.add("Hamster robo");
         stringList.add("Hamster Winter White");
         ArrayAdapter <String> adapter  = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,stringList);
         spinner.setAdapter(adapter);
@@ -80,7 +115,12 @@ public class ThemSanPhamActivity extends AppCompatActivity {
         binding.btnThemSPQuanLy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                themsanpham();
+                if(flag == false){
+                    themsanpham();
+                }else {
+                    suaSanPham();
+                }
+
             }
         });
 
@@ -95,6 +135,35 @@ public class ThemSanPhamActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void suaSanPham() {
+        String string_tensp= binding.txtQuanLyThemTenSanPham.getText().toString().trim();
+        String string_giasp= binding.txtQuanLyThemGiaSanPham.getText().toString().trim();
+        String string_hinhanhsp= binding.txtQuanLyThemHinhAnhSanPham.getText().toString().trim();
+        String string_motasp= binding.txtQuanLyThemMoTaSanPham.getText().toString().trim();
+
+        if(TextUtils.isEmpty(string_tensp)||TextUtils.isEmpty(string_giasp)||TextUtils.isEmpty(string_hinhanhsp)||TextUtils.isEmpty(string_motasp)||loai==0){
+            Toast.makeText(getApplicationContext(), "Mời nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+        }else {
+            compositeDisposable.add(apiHamster.suasp(string_tensp,string_giasp,string_hinhanhsp,string_motasp,loai,sanphamMoiSua.getId())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            messageModel -> {
+                                if(messageModel.isSuccess()){
+                                    Toast.makeText(getApplicationContext(), messageModel.getMessage(), Toast.LENGTH_SHORT).show();
+
+
+                                }else{
+                                    Toast.makeText(getApplicationContext(), messageModel.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            },throwable -> {
+                                Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+
+                    ));
+        }
     }
 
     @Override
@@ -121,6 +190,8 @@ public class ThemSanPhamActivity extends AppCompatActivity {
                             messageModel -> {
                                 if(messageModel.isSuccess()){
                                     Toast.makeText(getApplicationContext(), messageModel.getMessage(), Toast.LENGTH_SHORT).show();
+
+
                                 }else{
                                     Toast.makeText(getApplicationContext(), messageModel.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -176,6 +247,7 @@ public class ThemSanPhamActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        frameLayout= findViewById(R.id.frameThemSPMMenu);
         spinner=findViewById(R.id.spinnerThemSanPhamQuanLy);
     }
 
