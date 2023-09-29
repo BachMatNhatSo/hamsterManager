@@ -23,6 +23,7 @@ public class LichSuDonHangActivity extends AppCompatActivity {
     ApiHamster apiHamster;
     RecyclerView rcvDonHang ;
     Toolbar toolbar;
+    int tinhtrang;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

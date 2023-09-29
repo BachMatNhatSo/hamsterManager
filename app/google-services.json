@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "477819808294",
+    "project_id": "hamsterstore-bba39",
+    "storage_bucket": "hamsterstore-bba39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477819808294:android:276bbf6ac9b910cbd914e7",
+        "android_client_info": {
+          "package_name": "com.manager.hamster"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAawv1LoBrlT3Gqk3PU3OzCoIu6m9w1fU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

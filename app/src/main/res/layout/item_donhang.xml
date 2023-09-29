@@ -14,14 +14,28 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/txtIdDonHang"
-                android:text="Đơn Hàng: 0"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/txtIdDonHang"
+                    android:text="Đơn Hàng: 0"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/txttrangthaidonhang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="tình trạng đươn hàng"></TextView>
+            </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvChiTietDonHang"
                 android:layout_width="match_parent"

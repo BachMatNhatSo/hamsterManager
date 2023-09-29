@@ -1,5 +1,6 @@
 package com.manager.hamster.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -10,6 +11,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.manager.hamster.R;
 import com.manager.hamster.retrofit.ApiHamster;
 import com.manager.hamster.retrofit.retrofitClient;
@@ -25,6 +31,7 @@ public class DangKyActivity extends AppCompatActivity {
     AppCompatButton btndk;
     ApiHamster apiHamster;
     CompositeDisposable compositeDisposable= new CompositeDisposable();
+    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,24 +66,21 @@ public class DangKyActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Bạn chưa nhập Phone", Toast.LENGTH_SHORT).show();
                 }else {
                     if(str_pass.equals(str_repass)){
-                        compositeDisposable.add(apiHamster.dangky(str_email,str_pass,str_username,str_phone)
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(
-                                        userModel -> {
-                                            if(userModel.isSuccess()){
-                                                utils.user_current.setEmail(str_email);
-                                                utils.user_current.setEmail(str_pass);
-                                                Intent intent = new Intent(DangKyActivity.this,DangNhapActivity.class);
-                                                startActivity(intent);
-                                                finish();
-                                            }else {
-                                                  Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
+                        firebaseAuth= FirebaseAuth.getInstance();
+                        firebaseAuth.createUserWithEmailAndPassword(str_email,str_pass)
+                                .addOnCompleteListener(DangKyActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if(task.isSuccessful()){
+                                            FirebaseUser user =   firebaseAuth.getCurrentUser();
+                                            if(user!=null){
+                                                postData( str_email, str_pass, str_username, str_phone,user.getUid());
+                                            }else{
+                                                Toast.makeText(getApplicationContext(), "Email Exists!!", Toast.LENGTH_SHORT).show();
                                             }
-                                        },throwable -> {
-                                              Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
-                                ));
+                                    }
+                                });
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Pass và Re-pass không khớp!!", Toast.LENGTH_SHORT).show();
@@ -86,7 +90,25 @@ public class DangKyActivity extends AppCompatActivity {
         });
     }
 
-    private void dangky() {
+    private void postData(String str_email,String str_pass,String str_username,String str_phone,String uid) {
+        compositeDisposable.add(apiHamster.dangky(str_email,"onfirebase",str_username,str_phone,uid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        userModel -> {
+                            if(userModel.isSuccess()){
+                                utils.user_current.setEmail(str_email);
+                                utils.user_current.setEmail("onfirebase");
+                                Intent intent = new Intent(DangKyActivity.this,DangNhapActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else {
+                                Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        },throwable -> {
+                            Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                ));
 
     }
 

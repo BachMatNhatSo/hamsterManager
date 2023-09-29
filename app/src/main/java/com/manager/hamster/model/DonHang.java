@@ -8,6 +8,15 @@ public class DonHang {
     String diachi;
     String sodienthoai;
     String tongtien;
+    int trangthai;
+
+    public int getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(int trangthai) {
+        this.trangthai = trangthai;
+    }
 
     List<item> item;
 

@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,9 +25,13 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.manager.hamster.R;
 import com.manager.hamster.adapter.loaiSPAdapter;
 import com.manager.hamster.adapter.sanPhamMoiAdapter;
+import com.manager.hamster.model.User;
 import com.manager.hamster.model.loaiSP;
 import com.manager.hamster.model.sanPhamMoi;
 import com.manager.hamster.retrofit.ApiHamster;
@@ -37,6 +43,7 @@ import com.nex3z.notificationbadge.NotificationBadge;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -58,13 +65,20 @@ public class MainActivity extends AppCompatActivity {
     NotificationBadge notificationBadge;
     FrameLayout frameGioHang;
     ImageView imgSearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         apiHamster = retrofitClient.getInstance(utils.BASE_URL).create(ApiHamster.class);
+        Paper.init(this);
+        if(Paper.book().read("user")!=null)
+        {
+            User user = Paper.book().read("user");
+            utils.user_current=user;
+        }
 
-
+        getToken();
         AnhXa();
         ActionBar();
 
@@ -131,6 +145,26 @@ public class MainActivity extends AppCompatActivity {
         }
         notificationBadge.setText(String.valueOf(totalItem));
     }
+    private void getToken(){
+        FirebaseMessaging.getInstance().getToken()
+                .addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        if(!TextUtils.isEmpty(s)){
+                            compositeDisposable.add(apiHamster.updateToken(utils.user_current.getId(),s)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(
+                                            messageModel -> {
+
+                                            },throwable -> {
+                                                Log.d("log",throwable.getMessage());
+                                            }
+                                    ));
+                        }
+                    }
+                });
+    }
 
     private void getEventClick(){
         listViewManHinhChinh.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -156,7 +190,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(donhang);
                         break;
                     case 7:
-                        utils.user_current.setEmail(null);
+                        Paper.book().delete("user");
+                        FirebaseAuth.getInstance().signOut();
                         Intent dangxuat = new Intent(getApplicationContext(),DangNhapActivity.class);
                         startActivity(dangxuat);
                         break;

@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.manager.hamster.R;
 import com.manager.hamster.retrofit.ApiHamster;
 import com.manager.hamster.retrofit.retrofitClient;
@@ -44,26 +45,13 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vui lòng điền email muốn khôi phục mật khẩu!", Toast.LENGTH_SHORT).show();
                 }else{
                     progressBar.setVisibility(View.VISIBLE);
-                    compositeDisposable.add(apiHamsterl.resetpassword(str_email)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    userModel -> {
-                                        if(userModel.isSuccess()){
-                                            Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                            Intent intent= new Intent(getApplicationContext(),DangNhapActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                        else {
-                                            Toast.makeText(getApplicationContext(), userModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                    },throwable -> {
-                                        Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                    }
-                            ));
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(str_email)
+                            .addOnCompleteListener(task -> {
+                               if(task.isSuccessful()){
+                                   Toast.makeText(getApplicationContext(), "Kiểm tra Email của bạn", Toast.LENGTH_SHORT).show();
+                               }
+                               finish();
+                            });
                 }
             }
         });

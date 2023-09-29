@@ -20,6 +20,7 @@ public class donHangAdapter extends RecyclerView.Adapter<donHangAdapter.MyViewHo
     Context context;
     List<DonHang> listdonhang;
 
+
     public donHangAdapter(Context context, List<DonHang> listdonhang) {
         this.context = context;
         this.listdonhang = listdonhang;
@@ -37,6 +38,31 @@ public class donHangAdapter extends RecyclerView.Adapter<donHangAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         DonHang donHang= listdonhang.get(position);
         holder.txtdonhang.setText("Đơn Hàng: "+donHang.getId());
+        int trangthai = donHang.getTrangthai();
+        String trangthaiText = "";
+
+        switch (trangthai) {
+            case 0:
+                trangthaiText = "Đơn hàng đang chờ xử lý";
+                break;
+            case 1:
+                trangthaiText = "Đơn hàng đã được xác nhận và đang chuẩn bị";
+                break;
+            case 2:
+                trangthaiText = "Đơn hàng đang trên đường vận chuyển";
+                break;
+            case 3:
+                trangthaiText = "Đơn hàng đã bị hủy";
+                break;
+            case 4:
+                trangthaiText = "Giao Thành Công";
+                break;
+            default:
+                trangthaiText = "Không xác định";
+                break;
+        }
+        holder.trangthai.setText(trangthaiText);
+
         LinearLayoutManager layoutManager= new LinearLayoutManager(
                 holder.rcvChitiet.getContext(),
                 LinearLayoutManager.VERTICAL,
@@ -51,6 +77,18 @@ public class donHangAdapter extends RecyclerView.Adapter<donHangAdapter.MyViewHo
 
 
     }
+    private  String trangthaidon(int status){
+        String result="";
+        switch (status){
+            case 0:
+                result = "đơn hàng đang chờ";
+                break;
+            case 1:
+                result = "đơn hàng đã xác nhận";
+                break;
+        }
+        return result;
+    }
 
     @Override
     public int getItemCount() {
@@ -58,12 +96,13 @@ public class donHangAdapter extends RecyclerView.Adapter<donHangAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView txtdonhang;
+        TextView txtdonhang,trangthai;
         RecyclerView rcvChitiet;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             txtdonhang =itemView.findViewById(R.id.txtIdDonHang);
             rcvChitiet =itemView.findViewById(R.id.rcvChiTietDonHang);
+            trangthai =itemView.findViewById(R.id.txttrangthaidonhang);
         }
     }
 }

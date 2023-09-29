@@ -37,7 +37,8 @@ public interface ApiHamster {
             @Field("email") String email,
             @Field("password") String password,
             @Field("username") String username,
-            @Field("phone") String phone
+            @Field("phone") String phone,
+            @Field("uid") String uid
 
     );
     @POST("dangnhap.php")
@@ -101,6 +102,12 @@ public interface ApiHamster {
     Observable<MessageModel> xoasp(
             @Field("id") int id
 
+    );
+    @POST("updatetoken.php")
+    @FormUrlEncoded
+    Observable<MessageModel> updateToken(
+            @Field("id") int id,
+            @Field("token") String token
     );
 
     @Multipart
