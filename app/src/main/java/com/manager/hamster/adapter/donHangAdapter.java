@@ -38,6 +38,7 @@ public class donHangAdapter extends RecyclerView.Adapter<donHangAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         DonHang donHang= listdonhang.get(position);
         holder.txtdonhang.setText("Đơn Hàng: "+donHang.getId());
+        holder.txtdiachi.setText("Địa Chỉ: "+donHang.getDiachi());
         int trangthai = donHang.getTrangthai();
         String trangthaiText = "";
 
@@ -96,13 +97,14 @@ public class donHangAdapter extends RecyclerView.Adapter<donHangAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView txtdonhang,trangthai;
+        TextView txtdonhang,trangthai,txtdiachi;
         RecyclerView rcvChitiet;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             txtdonhang =itemView.findViewById(R.id.txtIdDonHang);
             rcvChitiet =itemView.findViewById(R.id.rcvChiTietDonHang);
             trangthai =itemView.findViewById(R.id.txttrangthaidonhang);
+            txtdiachi= itemView.findViewById(R.id.txtDiaChiDonHang);
         }
     }
 }

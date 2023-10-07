@@ -36,6 +36,14 @@
                     android:text="tình trạng đươn hàng"></TextView>
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/txtDiaChiDonHang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Địa Chỉ: "
+                android:padding="5dp"
+                android:textStyle="bold"></TextView>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvChiTietDonHang"
                 android:layout_width="match_parent"

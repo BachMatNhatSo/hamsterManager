@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 0:
-                        Intent trangchu = new Intent(getApplicationContext(),TrangChuActivity.class);
+                        Intent trangchu = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(trangchu);
                         break;
                     case 1:
@@ -185,13 +185,28 @@ public class MainActivity extends AppCompatActivity {
                         hamster2.putExtra("loai",2);
                         startActivity(hamster2);
                         break;
+                    case 3:
+                        Intent hamster3 = new Intent(getApplicationContext(),HamsterActivity.class);
+                        hamster3.putExtra("loai",3);
+                        startActivity(hamster3);
+                        break;
+                    case 4:
+                        Intent hamster4 = new Intent(getApplicationContext(),HamsterActivity.class);
+                        hamster4.putExtra("loai",4);
+                        startActivity(hamster4);
+                        break;
+                    case 5:
+                        Intent hamster5 = new Intent(getApplicationContext(),HamsterActivity.class);
+                        hamster5.putExtra("loai",5);
+                        startActivity(hamster5);
+                        break;
                     case 6:
                         Intent donhang = new Intent(getApplicationContext(),LichSuDonHangActivity.class);
                         startActivity(donhang);
                         break;
                     case 7:
-                        Paper.book().delete("user");
-                        FirebaseAuth.getInstance().signOut();
+                        //Paper.book().delete("user");
+                        //FirebaseAuth.getInstance().signOut();
                         Intent dangxuat = new Intent(getApplicationContext(),DangNhapActivity.class);
                         startActivity(dangxuat);
                         break;
