@@ -22,6 +22,8 @@ import com.manager.hamster.utils.utils;
 import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChiTietActivity extends AppCompatActivity {
     TextView tensp,giasp,mota;
@@ -59,31 +61,33 @@ public class ChiTietActivity extends AppCompatActivity {
             for(int i=0 ;i<utils.mangGioHang.size();i++){
                 if(utils.mangGioHang.get(i).getIdsp() == sanPhamMoi.getId()){
                     utils.mangGioHang.get(i).setSoluong(soluong + utils.mangGioHang.get(i).getSoluong());
-                    Long gia = Long.parseLong(sanPhamMoi.getGiasp()) * utils.mangGioHang.get(i).getSoluong();
-                    utils.mangGioHang.get(i).setGiasp(gia);
+//                    Long gia = Long.parseLong(sanPhamMoi.getGiasp()) * utils.mangGioHang.get(i).getSoluong();
+//                    utils.mangGioHang.get(i).setGiasp(gia);
                     flag=true;
                 }
             }
             if (flag==false){
-                long gia = Long.parseLong(sanPhamMoi.getGiasp())*soluong;
+                long gia = Long.parseLong(sanPhamMoi.getGiasp());
                 gioHang gioHang= new gioHang();
                 gioHang.setGiasp(gia);
                 gioHang.setSoluong(soluong);
                 gioHang.setIdsp(sanPhamMoi.getId());
                 gioHang.setTensp(sanPhamMoi.getTensanpham());
                 gioHang.setHinhsp(sanPhamMoi.getHinhanh());
+                gioHang.setSltonkho(sanPhamMoi.getSltonkho());
                 utils.mangGioHang.add(gioHang);
             }
 
         }else {
             int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
-            long gia = Long.parseLong(sanPhamMoi.getGiasp()) * soluong;
+            long gia = Long.parseLong(sanPhamMoi.getGiasp()) ;
             gioHang gioHang= new gioHang();
             gioHang.setGiasp(gia);
             gioHang.setSoluong(soluong);
             gioHang.setIdsp(sanPhamMoi.getId());
             gioHang.setTensp(sanPhamMoi.getTensanpham());
             gioHang.setHinhsp(sanPhamMoi.getHinhanh());
+            gioHang.setSltonkho(sanPhamMoi.getSltonkho());
             utils.mangGioHang.add(gioHang);
         }
         int totalItem =0 ;
@@ -108,7 +112,11 @@ public class ChiTietActivity extends AppCompatActivity {
         }
         DecimalFormat decimalFormat =new DecimalFormat("###,###,###");
         giasp.setText("Giá: "+decimalFormat.format(Double.parseDouble(sanPhamMoi.getGiasp()))+"Đ");
-        Integer[] so= new Integer[]{1,2,3,4,5,6,7,8,9,10};
+//        Integer[] so= new Integer[]{1,2,3,4,5,6,7,8,9,10};
+        List<Integer> so = new ArrayList<>();
+        for(int i=1; i<sanPhamMoi.getSltonkho()+1;i++){
+            so.add(i);
+        }
         ArrayAdapter<Integer> adapterSpinner = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,so);
         spinner.setAdapter(adapterSpinner);
     }

@@ -7,6 +7,15 @@ public class gioHang {
     String hinhsp;
     int soluong;
     boolean isChecked;
+    int sltonkho;
+
+    public int getSltonkho() {
+        return sltonkho;
+    }
+
+    public void setSltonkho(int sltonkho) {
+        this.sltonkho = sltonkho;
+    }
 
     public boolean isChecked() {
         return isChecked;

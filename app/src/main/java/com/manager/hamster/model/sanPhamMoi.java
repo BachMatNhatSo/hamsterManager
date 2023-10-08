@@ -9,6 +9,15 @@ public class sanPhamMoi implements Serializable {
     String hinhanh;
     String mota;
     int loai;
+    int sltonkho;
+
+    public int getSltonkho() {
+        return sltonkho;
+    }
+
+    public void setSltonkho(int sltonkho) {
+        this.sltonkho = sltonkho;
+    }
 
     public int getId() {
         return id;

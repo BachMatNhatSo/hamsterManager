@@ -47,7 +47,7 @@ public class gioHangAdapter extends RecyclerView.Adapter<gioHangAdapter.MyViewHo
         gioHang gioHang = gioHangList.get(position);
         holder.item_GioHang_TenSP.setText(gioHang.getTensp());
         holder.item_GioHang_SoLuong.setText(gioHang.getSoluong() +" ");
-        Glide.with(context).load(gioHang.getHinhsp()).into(holder.item_GioHang_Image);
+        //Glide.with(context).load(gioHang.getHinhsp()).into(holder.item_GioHang_Image);
         if(gioHang.getHinhsp().contains("http")){
             Glide.with(context).load(gioHang.getHinhsp()).into(holder.item_GioHang_Image);
         }else {
@@ -74,6 +74,7 @@ public class gioHangAdapter extends RecyclerView.Adapter<gioHangAdapter.MyViewHo
                     for(int i=0 ;i<utils.mangMuaHang.size();i++){
                         if(utils.mangMuaHang.get(i).getIdsp()==gioHang.getIdsp()){
                             utils.mangMuaHang.remove(i);
+                            EventBus.getDefault().postSticky(new TinhTongEvent());
                         }
                     }
                 }
@@ -116,7 +117,7 @@ public class gioHangAdapter extends RecyclerView.Adapter<gioHangAdapter.MyViewHo
 
                    }
                }else if(giatri == 2){
-                   if(gioHangList.get(pos).getSoluong()<11){
+                   if(gioHangList.get(pos).getSoluong()< gioHangList.get(pos).getSltonkho()){
                        int soluongmoi = gioHangList.get(pos).getSoluong()+1;
                        gioHangList.get(pos).setSoluong(soluongmoi);
                    }
