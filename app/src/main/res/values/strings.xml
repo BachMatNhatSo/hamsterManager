@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HamsterManager</string>
+    <string name="my_map_api_key">AIzaSyC9xrgWlmnAJUiDtxzHVL8VTeN-YmPcspw</string>
 </resources>

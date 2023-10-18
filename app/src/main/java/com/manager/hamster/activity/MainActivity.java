@@ -205,15 +205,15 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(donhang);
                         break;
                     case 7:
-                        //Paper.book().delete("user");
+                        Paper.book().delete("user");
                         //FirebaseAuth.getInstance().signOut();
                         Intent dangxuat = new Intent(getApplicationContext(),DangNhapActivity.class);
                         startActivity(dangxuat);
                         break;
-                    case 8:
-                        Intent quanly = new Intent(getApplicationContext(),QuanLyActivity.class);
-                        startActivity(quanly);
-                        break;
+//                    case 8:
+//                        Intent quanly = new Intent(getApplicationContext(),QuanLyActivity.class);
+//                        startActivity(quanly);
+//                        break;
                 }
             }
         });
@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
                         loaiSPModel -> {
                             if(loaiSPModel.isSuccess()){
                                 mangLoaiSP=loaiSPModel.getResult();
-                                mangLoaiSP.add(new loaiSP("Quản Lý",""));
+                                //mangLoaiSP.add(new loaiSP("Quản Lý",""));
                                 loaiSPAdapter = new loaiSPAdapter(getApplicationContext(),mangLoaiSP);
                                 listViewManHinhChinh.setAdapter(loaiSPAdapter);
                             }

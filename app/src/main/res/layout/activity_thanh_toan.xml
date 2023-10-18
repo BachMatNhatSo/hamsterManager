@@ -119,16 +119,32 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+    <LinearLayout
+        android:weightSum="5"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
-
+            android:layout_weight="4"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:id="@+id/edittextDiaChiGiaoHang"
             android:hint="Nhập địa chỉ giao hàng"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
         </com.google.android.material.textfield.TextInputEditText>
+        <ImageView
+
+            android:id="@+id/imgview_Map"
+            android:layout_weight="1"
+            android:src="@drawable/baseline_camera_alt_24"
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="40dp">
+
+        </ImageView>
+    </LinearLayout>
     </com.google.android.material.textfield.TextInputLayout>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnThanhToanDatHang"
