@@ -297,6 +297,7 @@ public class MainActivity extends AppCompatActivity {
         getSPMoi();
     }
 
+
     @Override
     protected void onDestroy() {
         compositeDisposable.clear();

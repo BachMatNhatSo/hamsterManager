@@ -69,5 +69,6 @@ dependencies {
     implementation ("io.github.pilgr:paperdb:2.7.2")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.android.gms:play-services-location:17.0.0");
+    implementation("com.paypal.sdk:paypal-android-sdk:2.16.0");
 
 }
